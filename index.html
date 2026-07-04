@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0F3D5C">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="format-detection" content="telephone=no">
+<title>Eco-Transit IA — Transport Intelligent, Énergie Préservée</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="none">
+        <path d="M12 2C7.5 2 4 5.6 4 10c0 6 8 12 8 12s8-6 8-12c0-4.4-3.5-8-8-8z" fill="url(#pinGrad)"/>
+        <path d="M8 9.5c1.5-1 3-1.4 4-.6-.6 1.2-2 2-4 .6z" fill="#fff" opacity=".9"/>
+        <defs>
+          <linearGradient id="pinGrad" x1="4" y1="2" x2="20" y2="22">
+            <stop offset="0" stop-color="#6CC24A"/>
+            <stop offset="1" stop-color="#0F3D5C"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </span>
+    <div class="brand-text">
+      <span class="brand-name">Eco-Transit <em>IA</em></span>
+      <span class="brand-tagline">Transport intelligent · Énergie préservée</span>
+    </div>
+  </div>
+
+  <nav class="tabs hidden" role="tablist">
+    <button class="tab active" data-view="passager" role="tab" aria-selected="true">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+      <span class="tab-label-full">Espace Passager</span>
+      <span class="tab-label-short">Passager</span>
+    </button>
+    <button class="tab" data-view="chauffeur" role="tab" aria-selected="false">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 9V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v3"/><circle cx="7.5" cy="17" r="1.5"/><circle cx="16.5" cy="17" r="1.5"/></svg>
+      <span class="tab-label-full">Tableau de Bord Chauffeur</span>
+      <span class="tab-label-short">Chauffeur</span>
+    </button>
+    <button class="tab" data-view="admin" role="tab" aria-selected="false">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l2.5 2.5"/></svg>
+      <span class="tab-label-full">Administration</span>
+      <span class="tab-label-short">Admin</span>
+    </button>
+  </nav>
+
+  <div class="topbar-user hidden" id="topbar-user">
+    <span class="topbar-user-name" id="topbar-user-name"></span>
+    <button id="btn-logout" class="btn-logout" title="Déconnexion">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+    </button>
+  </div>
+
+  <div class="nav-cta" id="nav-cta">
+    <button type="button" class="btn-text" id="nav-login-btn">Se connecter</button>
+    <button type="button" class="btn-outline" id="nav-signup-btn">Créer un compte</button>
+  </div>
+</header>
+
+<!-- ===== MARKETING / LANDING PAGE ===== -->
+<main id="view-marketing" class="view marketing-view active">
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Transport informel, piloté par l'IA</p>
+      <h1>Chaque trajet compte.<br><em>Zéro trajet à vide.</em></h1>
+      <p class="lede">Eco-Transit IA connecte les passagers aux chauffeurs de proximité à Tanger et optimise chaque tournée pour économiser du carburant, réduire les embouteillages et le CO₂ — sans bouleverser la manière dont le secteur fonctionne aujourd'hui.</p>
+      <div class="hero-actions">
+        <button type="button" class="btn-primary" id="hero-signup-btn">Créer un compte gratuit</button>
+        <button type="button" class="btn-outline" id="hero-login-btn">Se connecter</button>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hv-card hv-1"><b>-38%</b><span>carburant économisé / tournée</span></div>
+      <div class="hv-card hv-2"><b>0 DH</b><span>commission prélevée</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <p class="eyebrow">Comment ça marche</p>
+      <h2>Deux espaces, un seul objectif : plus de trajets utiles</h2>
+    </div>
+    <div class="role-cards">
+      <div class="role-card role-passager">
+        <span class="role-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+        </span>
+        <h3>Passager</h3>
+        <p>Partagez votre position en un clic et rejoignez la file d'attente de votre zone. Aucun formulaire, aucune réservation contraignante — vous restez libre de négocier la prise en charge comme aujourd'hui.</p>
+      </div>
+      <div class="role-card role-chauffeur">
+        <span class="role-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 9V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v3"/><circle cx="7.5" cy="17" r="1.5"/><circle cx="16.5" cy="17" r="1.5"/></svg>
+        </span>
+        <h3>Chauffeur</h3>
+        <p>Un algorithme de tournée calcule l'ordre de ramassage optimal pour votre véhicule et trace l'itinéraire réel. Vous voyez immédiatement le carburant, le CO₂ et la distance économisés.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <p class="eyebrow">Pourquoi Eco-Transit IA</p>
+      <h2>Pensé pour le secteur informel, pas contre lui</h2>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <p class="eyebrow">Carte en temps réel</p>
+        <h4>Tout le monde voit la même file</h4>
+        <p>Chaque nouvelle demande apparaît instantanément sur la carte du chauffeur — synchronisation en direct, sans rafraîchir la page.</p>
+      </div>
+      <div class="feature-card">
+        <p class="eyebrow">IA de tournée</p>
+        <h4>Le meilleur ordre de ramassage</h4>
+        <p>Un algorithme de plus proche voisin élimine les détours inutiles et les trajets à vide, avec un tracé d'itinéraire réel.</p>
+      </div>
+      <div class="feature-card">
+        <p class="eyebrow">Neutralité économique</p>
+        <h4>Aucune commission</h4>
+        <p>La plateforme ne prélève rien sur les tarifs des chauffeurs : elle optimise le travail existant, elle ne le remplace pas.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="marketing-footer">
+    Eco-Transit IA — prototype hackathon, Tanger. Les tarifs restent négociés directement avec le chauffeur.
+  </footer>
+</main>
+
+<!-- ===== HOME / AUTHENTIFICATION ===== -->
+<main id="view-home" class="view auth-view">
+  <div class="auth-shell">
+    <button type="button" class="btn-text" id="back-to-marketing" style="align-self:flex-start;margin-bottom:-10px;">← Retour à l'accueil</button>
+    <div class="auth-brand">
+      <span class="brand-mark brand-mark-lg">
+        <svg viewBox="0 0 24 24" width="40" height="40" fill="none">
+          <path d="M12 2C7.5 2 4 5.6 4 10c0 6 8 12 8 12s8-6 8-12c0-4.4-3.5-8-8-8z" fill="url(#pinGrad2)"/>
+          <path d="M8 9.5c1.5-1 3-1.4 4-.6-.6 1.2-2 2-4 .6z" fill="#fff" opacity=".9"/>
+          <defs>
+            <linearGradient id="pinGrad2" x1="4" y1="2" x2="20" y2="22">
+              <stop offset="0" stop-color="#6CC24A"/>
+              <stop offset="1" stop-color="#0F3D5C"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </span>
+      <h1>Eco-Transit <em>IA</em></h1>
+      <p class="lede-sm">Transport intelligent, énergie préservée — Tanger</p>
+    </div>
+
+    <div class="role-toggle" role="tablist">
+      <button class="role-btn active" data-role="passager" role="tab" aria-selected="true" type="button">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+        Je suis Passager
+      </button>
+      <button class="role-btn" data-role="chauffeur" role="tab" aria-selected="false" type="button">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 9V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v3"/><circle cx="7.5" cy="17" r="1.5"/><circle cx="16.5" cy="17" r="1.5"/></svg>
+        Je suis Chauffeur
+      </button>
+    </div>
+
+    <div class="auth-card">
+      <div class="auth-mode-toggle">
+        <button class="mode-btn active" data-mode="login" type="button">Connexion</button>
+        <button class="mode-btn" data-mode="signup" type="button">Inscription</button>
+      </div>
+
+      <form id="auth-form" novalidate>
+        <div class="field">
+          <label for="auth-email">Email</label>
+          <input type="email" id="auth-email" required autocomplete="email">
+        </div>
+        <div class="field">
+          <label for="auth-password">Mot de passe</label>
+          <input type="password" id="auth-password" required autocomplete="current-password" minlength="6">
+        </div>
+
+        <div class="signup-fields hidden">
+          <div class="field">
+            <label for="auth-name">Nom complet</label>
+            <input type="text" id="auth-name" autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="auth-phone">Téléphone (WhatsApp)</label>
+            <input type="tel" id="auth-phone" placeholder="+212 6XX XXX XXX" autocomplete="tel">
+          </div>
+
+          <div class="chauffeur-fields hidden">
+            <div class="field">
+              <label for="auth-immat">Immatriculation</label>
+              <input type="text" id="auth-immat" placeholder="12345-A-1">
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="auth-capacite">Places disponibles</label>
+                <input type="number" id="auth-capacite" min="1" max="30" value="8">
+              </div>
+              <div class="field">
+                <label for="auth-conso">Conso. (L/100km)</label>
+                <input type="number" id="auth-conso" min="1" max="50" value="12" step="0.1">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="auth-error" class="auth-error hidden"></div>
+
+        <button type="submit" id="auth-submit" class="btn-primary full">
+          <span id="auth-submit-text">Se connecter</span>
+        </button>
+      </form>
+
+      <p class="auth-switch">
+        <span id="auth-switch-text">Pas encore de compte ?</span>
+        <button type="button" id="auth-switch-btn">Créer un compte</button>
+      </p>
+    </div>
+  </div>
+</main>
+
+<!-- ===== PASSENGER VIEW ===== -->
+<main id="view-passager" class="view">
+  <section class="panel-left">
+    <p class="eyebrow">Espace passager</p>
+    <h1>Où souhaitez-vous être pris en charge ?</h1>
+    <p class="lede">Partagez votre position en un clic. Vous rejoignez instantanément la file d'attente de votre zone — aucun formulaire à remplir.</p>
+
+    <button id="btn-share-location" class="btn-primary">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+      Partager ma position GPS
+    </button>
+
+    <div id="passenger-status" class="status-card hidden">
+      <span class="status-dot"></span>
+      <div>
+        <p class="status-title">En attente de ramassage…</p>
+        <p class="status-sub" id="passenger-status-sub">Position ajoutée à la file d'attente</p>
+      </div>
+    </div>
+
+    <div class="queue-info">
+      <span class="queue-count" id="queue-count">0</span>
+      <span class="queue-label">passager(s) en attente dans votre zone</span>
+    </div>
+  </section>
+
+  <section class="panel-map">
+    <div id="map-passager" class="map"></div>
+  </section>
+</main>
+
+<!-- ===== DRIVER VIEW ===== -->
+<main id="view-chauffeur" class="view">
+  <section class="panel-map full">
+    <div id="map-chauffeur" class="map"></div>
+    <div class="optimize-bar floating">
+      <button id="btn-optimize" class="btn-primary">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+        Lancer l'optimisation
+      </button>
+      <label class="ia-toggle">
+        <input type="checkbox" id="toggle-ia">
+        <span>IA prédictive (bêta)</span>
+      </label>
+      <span id="ia-status" class="ia-status">Entraînement de l'IA…</span>
+    </div>
+  </section>
+
+  <aside class="panel-kpi">
+    <p class="eyebrow">Moteur d'optimisation IA</p>
+    <h2>Impact énergétique en temps réel</h2>
+    <p class="lede-sm">Algorithme de tournée (glouton / plus proche voisin) appliqué aux passagers en attente.</p>
+
+    <div class="kpi-grid">
+      <div class="kpi-card kpi-green">
+        <span class="kpi-value" id="kpi-fuel">0<small>%</small></span>
+        <span class="kpi-label">Carburant économisé</span>
+      </div>
+      <div class="kpi-card kpi-blue">
+        <span class="kpi-value" id="kpi-co2">0<small>kg</small></span>
+        <span class="kpi-label">CO₂ évité</span>
+      </div>
+      <div class="kpi-card kpi-dark">
+        <span class="kpi-value" id="kpi-dist">0<small>km</small></span>
+        <span class="kpi-label">Distance économisée</span>
+      </div>
+    </div>
+
+    <div class="route-list">
+      <p class="route-list-title">Ordre de ramassage optimal</p>
+      <ol id="route-order"></ol>
+    </div>
+
+    <p class="hint" id="driver-hint">Ajoutez des passagers depuis l'Espace Passager, puis lancez l'optimisation.</p>
+  </aside>
+</main>
+
+<!-- ===== ADMIN VIEW ===== -->
+<main id="view-admin" class="view">
+  <section class="panel-left">
+    <p class="eyebrow">Espace administrateur</p>
+    <h1>Vue d'ensemble de la plateforme</h1>
+    <p class="lede">Contrôle total : comptes inscrits, chauffeurs actifs, demandes en cours — et la main pour débloquer une situation.</p>
+
+    <div class="kpi-grid admin-kpi-grid">
+      <div class="kpi-card kpi-green"><span class="kpi-value" id="admin-kpi-passagers">–</span><span class="kpi-label">Passagers inscrits</span></div>
+      <div class="kpi-card kpi-blue"><span class="kpi-value" id="admin-kpi-chauffeurs">–</span><span class="kpi-label">Chauffeurs inscrits</span></div>
+      <div class="kpi-card kpi-dark"><span class="kpi-value" id="admin-kpi-dispo">–</span><span class="kpi-label">Chauffeurs disponibles</span></div>
+      <div class="kpi-card kpi-green"><span class="kpi-value" id="admin-kpi-demandes">–</span><span class="kpi-label">Demandes en attente</span></div>
+    </div>
+
+    <div class="admin-section">
+      <p class="route-list-title">Chauffeurs</p>
+      <ul class="admin-list" id="admin-chauffeurs-list"><li class="admin-empty">Chargement…</li></ul>
+    </div>
+
+    <div class="admin-section">
+      <p class="route-list-title">Demandes en attente</p>
+      <ul class="admin-list" id="admin-demandes-list"><li class="admin-empty">Chargement…</li></ul>
+    </div>
+  </section>
+
+  <section class="panel-map full">
+    <div id="map-admin" class="map"></div>
+  </section>
+</main>
+
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.20.0/dist/tf.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
